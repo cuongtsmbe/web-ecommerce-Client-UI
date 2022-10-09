@@ -1,10 +1,10 @@
 import { PureComponent } from 'react';
+import React from 'react';
+
 class TopHeader extends PureComponent {
     render() {
-        return (
-            // <!-- TOP HEADER -->
+        return (            
             <div id="top-header">
-
                 <div className="container">
                     <ul className="header-links pull-left">
                         <li><a><i className="fa fa-phone"></i> 0987654321</a></li>
@@ -21,11 +21,10 @@ class TopHeader extends PureComponent {
                         }
                         else echo '<li><a href="index.php?act=register"><i className="fa fa-user-o"></i> Tạo tài khoản</a></li>';
                     ?> */}
-
                     </ul>
                 </div>
             </div>
-            // <!-- /TOP HEADER -->
+            
         );
     }
 }

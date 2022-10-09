@@ -1,4 +1,4 @@
-import { PureComponent } from 'react';
+import React,{ PureComponent } from 'react';
 import usersCogSolid from '../../../data/image/users-cog-solid.svg';
 class MainHeader extends PureComponent {
     render() {

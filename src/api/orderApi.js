@@ -5,6 +5,14 @@ class OrderApi {
         const url = '/orders';
         return axiosClient.get(url, { params });
     };
+    getAll = (params) => {
+        const url = '/orders';
+        return axiosClient.get(url, { params });
+    };
+    getAll = (params) => {
+        const url = '/orders';
+        return axiosClient.get(url, { params });
+    };
 }
 const orderApi = new OrderApi();
 
