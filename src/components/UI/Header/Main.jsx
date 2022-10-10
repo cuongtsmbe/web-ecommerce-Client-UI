@@ -12,9 +12,9 @@ class MainHeader extends PureComponent {
                         {/* <!-- LOGO --> */}
                         <div className="col-md-3">
                             <div className="header-logo">
-                                <a href="index.php" className="logo">
+                                <a className="logo">
                                     {/* <!-- <img src="./img/lg.png" alt="" width=100px> --> */}
-                                    {/* <h1 style="color:white; margin-top: 12px;">GninE</h1> */}
+                                    <h1 style={{color: 'white', marginTop: '12px'}}>GninE</h1>
                                 </a>
                             </div>
                         </div>
@@ -48,7 +48,7 @@ class MainHeader extends PureComponent {
 
                                 {/* <!-- Cart --> */}                            
                                 <div>
-                                    <a href="?act=cart">
+                                    <a>
                                         <i className="fa fa-shopping-cart"></i>
                                         <span>Giỏ Hàng</span>
                                         <div className="qty" id="qtyPro">20</div>
@@ -78,7 +78,7 @@ class MainHeader extends PureComponent {
 										?> */}
 
                                         <div className="cart-btns">
-                                            <a href="index.php?act=login">Đăng Nhập</a>
+                                            <a>Đăng Nhập</a>
                                             {/* <?php
 												if(isset($_SESSION['ten_dangnhap'])){
 													echo '<a href="frontend/logout.php">Đăng Xuất <i className="fa fa-arrow-circle-right"></i></a>';
