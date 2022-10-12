@@ -1,12 +1,11 @@
 import React from 'react';
-import ScreenHome from './screens/Home';
+import ScreensRoot from './screens/Root';
 import TopHeader from './components/UI/Header/Top';
 import MainHeader from './components/UI/Header/Main';
 import Navigation from './components/UI/Header/Navigation';
 import Footer from './components/UI/Footer';
 
-
-function App() {
+function App() { 
   return (
     <div id="wapper">
       <div id="header">
@@ -14,8 +13,8 @@ function App() {
         <MainHeader />
         <Navigation />
       </div>
-      <div id="content">
-        <ScreenHome />
+      <div id="content">      
+        <ScreensRoot />
       </div>
       <div id="footer">
         <Footer />

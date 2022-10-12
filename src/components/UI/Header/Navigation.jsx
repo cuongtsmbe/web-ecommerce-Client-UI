@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import { Link } from "react-router-dom";
 import categoryApi from '../../../api/categoryApi'
 
 class Navigation extends PureComponent {
@@ -20,9 +21,9 @@ class Navigation extends PureComponent {
 				<div class="container">
 					<div id="responsive-nav">
 						<ul class="main-nav nav navbar-nav">
-							<li><a>Trang Chủ</a></li>
-							<li><a>Tùy Chọn</a></li>
-							{this.state.categories.map(category => <li><a>{category.ten_tl}</a></li>)}
+							<li><Link to='PTPMNMN/'>Trang Chủ</Link></li>
+							<li><Link to='PTPMNMN/categories'>Tùy Chọn</Link></li>
+							{this.state.categories.map(category => <li><Link to={`PTPMNMN/categories/${category.id}`}>{category.ten_tl}</Link></li>)}
 						</ul>
 					</div>
 				</div>
