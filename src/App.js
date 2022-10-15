@@ -2,9 +2,11 @@
 
 import './App.css';
 import React, { PureComponent } from 'react';
-import MainHeader from './components/UI/Header/Main';
-import TopHeader from './components/UI/Header/Top';
-
+import UIHeaderNavigation from './components/UI/Header/Navigation';
+import UIHeaderTop from './components/UI/Header/Top';
+import UIHeaderMain from './components/UI/Header/Main';
+import ScreensRoot from './screens/Root';
+import UIFooter from './components/UI/Footer/Footer';
 // class Header extends PureComponent {
 //   render() {
 //     return (
@@ -69,9 +71,18 @@ import TopHeader from './components/UI/Header/Top';
 class App extends PureComponent {
   render() {
     return (
-      <div>
-        <TopHeader />
-        <MainHeader />
+      <div id="wapper">
+        <div id="header">
+          <UIHeaderTop />
+          <UIHeaderMain />
+          <UIHeaderNavigation />
+        </div>
+        <div id="content">
+          <ScreensRoot/>
+        </div>
+        <div id="footer">
+          <UIFooter/>
+        </div>
       </div>
     );
   }
