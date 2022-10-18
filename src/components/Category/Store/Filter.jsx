@@ -1,6 +1,6 @@
 import React,{ PureComponent } from "react";
 
-class ComponentCateforyStoreFillter extends PureComponent{
+class ComponentCategoryStoreFillter extends PureComponent{
     render(){
         return(
             <div></div>
@@ -8,4 +8,4 @@ class ComponentCateforyStoreFillter extends PureComponent{
     }
 }
 
-export default ComponentCateforyStoreFillter
+export default ComponentCategoryStoreFillter

@@ -1,6 +1,6 @@
 import React,{ PureComponent } from "react";
 
-class ComponentCategoryOderList extends PureComponent{
+class ComponentOderList extends PureComponent{
     render(){
         return(
             <div>Component chứa lịch sử đơn hàng của khách hàng</div>
@@ -8,4 +8,4 @@ class ComponentCategoryOderList extends PureComponent{
     }
 }
 
-export default ComponentCategoryOderList
+export default ComponentOderList
