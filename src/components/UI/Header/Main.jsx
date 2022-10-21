@@ -50,7 +50,7 @@ class UIHeaderMain extends PureComponent{
 
                              {/* <!-- Cart --> */}                            
                              <div>
-                                 <Link>
+                                 <Link to='/cart'>
                                      <i className="fa fa-shopping-cart"></i>
                                      <span>Giỏ Hàng</span>
                                      <div className="qty" id="qtyPro">20</div>

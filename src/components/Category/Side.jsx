@@ -10,7 +10,7 @@ class ComponentCategorySide extends PureComponent {
                 <div className="aside">
                     <h3 className="aside-title">Thương Hiệu</h3>
                     <div className="checkbox-filter" id="chkBrand">
-                        {this.listBranchLaptop.map((branch, index) => <div className="input-checkbox">
+                        {this.listBranchLaptop.map((branch, index) => <div key={index} className="input-checkbox">
                             <input className="checkBrand" type="checkbox" id={index} value={branch} />
                             <label for={index}>
                                 <span></span>

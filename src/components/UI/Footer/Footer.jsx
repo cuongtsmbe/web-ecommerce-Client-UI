@@ -38,7 +38,7 @@ class UIFooter extends PureComponent {
                                     <h3 className="footer-title">Danh Mục Sản Phẩm</h3>
                                     <ul className="footer-links">
                                         <li><Link to='/'>Hot deals</Link></li>
-                                        {this.state.categories.map(category => <li><Link to={`/categories/${category.id}`}>{category.ten_tl}</Link></li>)}
+                                        {this.state.categories.map((category, index) => <li key={index}><Link to={`/categories/${category.id}`}>{category.ten_tl}</Link></li>)}
                                     </ul>
                                 </div>
                             </div>

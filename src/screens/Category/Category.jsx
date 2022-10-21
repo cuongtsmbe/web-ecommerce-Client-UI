@@ -4,25 +4,37 @@ import UIBreadCrumb from '../../components/UI/Breadcrumb/BreaedCrumb';
 import ComponentCategorySide from '../../components/Category/Side';
 import ComponentCategoryStoreFillter from '../../components/Category/Store/Filter';
 import ComponentCategoryStoreListProduct from '../../components/Category/Store/ListProduct';
+import productApi from "../../api/productApi";
 
 class ScreenCategory extends PureComponent {
-    state = {
-        idCategory: null
-    }
-    // componentDidMount() {
-    //     const { idCategory } = this.props.params;
-    //     this.setState({ idCategory })
-    // }
-    componentDidUpdate() {
-        const { idCategory } = this.props.params;
-        this.setState({ idCategory })
+
+    state = {        
+        listProducts: [],
+    };
+
+
+    async setListProduct() {
+        try {
+            const response = await productApi.getAll({idtheloai:this.props.params.idCategory});
+            const data =  response.data;
+            this.setState({ listProducts: data })            
+        } catch (error) {
+            console.log('Failed to fetch product list:', error);
+        }
     }
 
+    async componentDidMount() {
+       await this.setListProduct();       
+    }
+
+    async componentDidUpdate() {
+       await this.setListProduct();
+    }
 
     render() {
         return (
             <div>
-                {/* Màn hình trang thể loại {this.state.idCategory} phía client */}
+                {/* Màn hình trang thể loại { this.props.params.idCategory} phía client */}
                 <UIBreadCrumb />
 
                 {/* <!-- SECTION --> */}
@@ -38,12 +50,12 @@ class ScreenCategory extends PureComponent {
                             {/* <!-- STORE --> */}
                             <div id="store" className="col-md-9">
                                 {/* <!-- store top filter --> */}
-                                <ComponentCategoryStoreFillter/>
+                                <ComponentCategoryStoreFillter />
                                 {/* <!-- /store top filter --> */}
 
                                 {/* <!-- store products --> */}
                                 <div className="row" id="phan_trang">
-                                <ComponentCategoryStoreListProduct/>
+                                    <ComponentCategoryStoreListProduct products={this.state.listProducts} />
                                 </div>
                                 {/* <!-- /store products --> */}
 
