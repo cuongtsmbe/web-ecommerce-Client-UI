@@ -1,4 +1,5 @@
 import React, { PureComponent } from "react";
+import { Link } from "react-router-dom";
 // import '../../css/slick.css';
 // import '../../css/bootstrap.min.css';
 // import '../../css/font-awesome.min.css';
@@ -113,7 +114,7 @@ componentDidMount(){
                                         <i className="fa fa-star"></i>
                                         <i className="fa fa-star-o"></i>
                                     </div>
-                                    <a className="review-link" href="#">{this.props.detailProduct.sl_da_ban} sản phẩm đã bán.</a>
+                                    <Link className="review-link" to="">{this.props.detailProduct.sl_da_ban} sản phẩm đã bán.</Link>
                                 </div>
                                 <div>
                                     <h3 className="product-price">{this.props.detailProduct.don_gia}
@@ -151,16 +152,16 @@ componentDidMount(){
                                 <ul className="product-links">
                                     <li>Danh mục:</li>
 
-                                    <li><a href="?act=category&id=<?=$listcate_pro['id_tl']?>">Ten the loai</a></li>
-                                    <li><a href="">{this.props.detailProduct.ten_sp}</a></li>
+                                    <li><Link href="?act=category&id=<?=$listcate_pro['id_tl']?>">Ten the loai</Link></li>
+                                    <li><Link href="">{this.props.detailProduct.ten_sp}</Link></li>
                                 </ul>
 
                                 <ul className="product-links">
                                     <li>Chia sẽ:</li>
-                                    <li><a href="#"><i className="fa fa-facebook"></i></a></li>
-                                    <li><a href="#"><i className="fa fa-twitter"></i></a></li>
-                                    <li><a href="#"><i className="fa fa-google-plus"></i></a></li>
-                                    <li><a href="#"><i className="fa fa-envelope"></i></a></li>
+                                    <li><Link href="#"><i className="fa fa-facebook"></i></Link></li>
+                                    <li><Link href="#"><i className="fa fa-twitter"></i></Link></li>
+                                    <li><Link href="#"><i className="fa fa-google-plus"></i></Link></li>
+                                    <li><Link href="#"><i className="fa fa-envelope"></i></Link></li>
                                 </ul>
 
                             </div>
@@ -173,7 +174,7 @@ componentDidMount(){
                             <div id="product-tab">
                                 {/* product tab nav */}
                                 <ul className="tab-nav">
-                                    <li className="active"><a data-toggle="tab" href="#tab1">Thông Tin Sản Phẩm</a></li>
+                                    <li className="active"><Link data-toggle="tab" href="#tab1">Thông Tin Sản Phẩm</Link></li>
 
                                 </ul>
                                 {/* /product tab nav */}

@@ -5,7 +5,7 @@ export class ComponentCartItem extends PureComponent {
         return (
             <tr>
                 <td width="60px">
-                    <img src="'.$value['img'].'" width="100%" />
+                    <img src="'.$value['img'].'" width="100%" alt="Anh San Pham" />
                 </td>
                 <td width="40%">Ten san pham</td>
                 <td>Gia san pham</td>
