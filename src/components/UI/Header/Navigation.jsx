@@ -23,7 +23,7 @@ class UIHeaderNavigation extends PureComponent{
 						<ul className="main-nav nav navbar-nav">
 							<li><Link to='/'>Trang Chủ</Link></li>
 							<li><Link to='/categories'>Tùy Chọn</Link></li>
-							{this.state.categories.map((category,index )=> <li key={index}><Link  to={`/categories/${category.id}`}>{category.ten_tl}</Link></li>)}
+							{this.state.categories.map((category,index )=> <li key={index}><Link  to={`/categories/${category.id}`}>{category.ten_the_loai}</Link></li>)}
 						</ul>
 					</div>
 				</div>
