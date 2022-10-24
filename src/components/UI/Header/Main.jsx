@@ -81,6 +81,7 @@ class UIHeaderMain extends PureComponent{
 
                                      <div className="cart-btns">
                                          <Link>Đăng Nhập</Link>
+                                         <Link>Đăng Ký</Link>
                                          {/* <?php
                                              if(isset($_SESSION['ten_dangnhap'])){
                                                  echo '<a href="frontend/logout.php">Đăng Xuất <i className="fa fa-arrow-circle-right"></i></a>';
