@@ -7,9 +7,9 @@ import { Link } from "react-router-dom";
 // import '../../css/slick-theme.css';
 // import '../../css/style.css';
 
-class ComponentProductDetail extends PureComponent {    
-componentDidMount(){
-    const script = document.createElement("script");
+class ComponentProductDetail extends PureComponent {
+    componentDidMount() {
+        const script = document.createElement("script");
         script.src = "./js/main.js";
         script.type = 'text/javascript';
         script.async = true;
@@ -56,10 +56,10 @@ componentDidMount(){
         script7.type = 'text/javascript';
         script7.async = true;
         document.body.appendChild(script7);
-}
+    }
     render() {
         return (
-// <!-- SECTION -->
+            // <!-- SECTION -->
             <div className="section">
                 {/* container */}
                 <div className="container">
@@ -68,7 +68,7 @@ componentDidMount(){
                         {/* Product main img */}
                         <div className="col-md-5 col-md-push-2" >
                             <div id="product-main-img">
-                            <div className="product-preview">
+                                <div className="product-preview">
                                     <img src={this.props.detailProduct.hinh_anh} alt="" />
                                 </div>
                                 {/* <?php
@@ -94,8 +94,8 @@ componentDidMount(){
 						    	// }
 						        ?> */}
                                 <div className="product-preview">
-						    		<img src={this.props.detailProduct.hinh_anh} alt=""/>
-						    	 </div>
+                                    <img src={this.props.detailProduct.hinh_anh} alt="" />
+                                </div>
                             </div>
                         </div>
                         {/* /Product thumb imgs */}
@@ -158,10 +158,10 @@ componentDidMount(){
 
                                 <ul className="product-links">
                                     <li>Chia sẽ:</li>
-                                    <li><Link href="#"><i className="fa fa-facebook"></i></Link></li>
-                                    <li><Link href="#"><i className="fa fa-twitter"></i></Link></li>
-                                    <li><Link href="#"><i className="fa fa-google-plus"></i></Link></li>
-                                    <li><Link href="#"><i className="fa fa-envelope"></i></Link></li>
+                                    <li><Link><i className="fa fa-facebook"></i></Link></li>
+                                    <li><Link><i className="fa fa-twitter"></i></Link></li>
+                                    <li><Link><i className="fa fa-google-plus"></i></Link></li>
+                                    <li><Link><i className="fa fa-envelope"></i></Link></li>
                                 </ul>
 
                             </div>
@@ -223,7 +223,7 @@ componentDidMount(){
                 </div>
                 {/* <!-- /container --> */}
             </div>
-// <!-- /SECTION -->
+            // <!-- /SECTION -->
         )
     }
 }

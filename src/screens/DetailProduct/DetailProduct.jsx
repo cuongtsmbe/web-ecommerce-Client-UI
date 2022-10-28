@@ -3,6 +3,7 @@ import UIBreadCrumb from "../../components/UI/Breadcrumb/BreaedCrumb";
 import { withParams } from '../../utils/Params/componentWithParams';
 import productApi from "../../api/productApi";
 import ComponentProductDetail from "../../components/Product/Detail";
+import ComponentProductRelevant from "../../components/Product/Relevant";
 
 class ScreenDetailProduct extends PureComponent {
     state = {        
@@ -30,7 +31,8 @@ class ScreenDetailProduct extends PureComponent {
                 {/* Màn hình chi tiết sản phẩm ID: {this.state.idProduct} */}
                 <UIBreadCrumb />
                 {this.state.product.map((prod, index) => <ComponentProductDetail key={index} detailProduct={prod} />)}
-
+                {this.state.product.map((prod, index) => <ComponentProductRelevant idCategory={prod.id_the_loai} idProduct={prod.id}/>)}
+                
 
 
             </div>
