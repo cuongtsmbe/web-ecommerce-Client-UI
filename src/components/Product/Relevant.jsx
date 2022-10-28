@@ -15,6 +15,10 @@ export class ComponentProductRelevant extends PureComponent {
         const { idCategory, idProduct } = this.props;
         await this.getListProductRelevant(idCategory, idProduct);
     }
+    async componentDidUpdate(){
+        const { idCategory, idProduct } = this.props;
+        await this.getListProductRelevant(idCategory, idProduct);
+    }
     render() {
         return (
             // <!-- Section -->

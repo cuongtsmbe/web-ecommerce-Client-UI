@@ -21,8 +21,11 @@ class ScreenDetailProduct extends PureComponent {
         }
     }
 
-    async componentDidMount() {
+    async componentDidMount() {        
         await this.getDetailProduct();        
+    }
+    async componentDidUpdate(){
+        await this.getDetailProduct();
     }
 
     render() {
