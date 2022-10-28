@@ -9,6 +9,10 @@ class ProductApi {
         const url = `/product/details/${id}`;
         return axiosClient.get(url);
     };
+    getTop10Saler = (params) => {
+        const url = `/product/topsale/10`;
+        return axiosClient.get(url, { params });
+    }
 }
 const productApi = new ProductApi();
 

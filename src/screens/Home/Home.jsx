@@ -1,8 +1,21 @@
 import React, { PureComponent } from "react";
 import UIColection from '../../components/UI/Colection/Colection';
 import ComponentProductCard from '../../components/Product/Cart';
+import productApi from "../../api/productApi";
 
 class ScreenHome extends PureComponent {
+    state = { listTop10Saler: [], };
+    async setListTop10Saler() {
+        try {
+            const response = await productApi.getTop10Saler();
+            const data = response.data; this.setState({ listTop10Saler: data })
+        } catch (error) {
+            console.log('Failed to fetch top 10 saler list:', error);
+        }
+    }
+    async componentDidMount() {
+        await this.setListTop10Saler();
+    }
     render() {
         return (
             <div>
@@ -31,12 +44,7 @@ class ScreenHome extends PureComponent {
                                         <div id="tab1" class="tab-pane active">
                                             <div class="products-slick" data-nav="#slick-nav-1">
                                                 {/* <!-- product --> */}
-                                               {/* <ComponentProductCard/>
-											   <ComponentProductCard/>
-											   <ComponentProductCard/>
-											   <ComponentProductCard/>
-											   <ComponentProductCard/>
-											   <ComponentProductCard/> */}
+                                                {this.state.listTop10Saler.map(product => <ComponentProductCard key={product.id} infoProduct={product} />)}
                                                 {/* <!-- /product --> */}
 
                                             </div>
