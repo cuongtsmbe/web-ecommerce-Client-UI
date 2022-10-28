@@ -34,11 +34,11 @@
 
         "PRODUCT_GET_LIST"  : "/product/list",
 
-        "PRODUCT_GET_DETAILS"  : "/product/details/:id",
+        "PRODUCT_GET_DETAILS"  : "/product/details",
 
         "PRODUCT_GET_LIST_TOPSALE_BY_THELOAI"  : "/product/topsale/:idtheloai/:limit",
 
-        "PRODUCT_GET_LIST_TOPSALE_MOST" : "/product/topsale/:limit",
+        "PRODUCT_GET_LIST_TOPSALE_MOST" : "/product/topsale",
         
         "PRODUCT_GET_LIST_RELEVANT":"/product/relevant/:idtheloai/:idProduct/:limit"
     },
