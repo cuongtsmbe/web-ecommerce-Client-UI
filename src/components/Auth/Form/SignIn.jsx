@@ -1,10 +1,13 @@
 import React, { PureComponent } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { SignInAction } from '../../../actions/signIn'
 
 export class ComponentFormSignIn extends PureComponent {
     state = {
         username: '',
-        password: ''
+        password: '',
+        error:'',
     }
 
     handleChange = event => {
@@ -13,9 +16,15 @@ export class ComponentFormSignIn extends PureComponent {
         });
     }
 
+    handleSubmit = async event => {
+        event.preventDefault()
+        await this.props.SignInAction({username:this.state.username, password:this.state.password})        
+        window.location.reload();
+    }
+
     render() {
         return (
-            <form action='index.php?act=login' style={{ textAlign: "center" }} className="dangnhap" method='POST'>
+            <form onSubmit={this.handleSubmit} style={{ textAlign: "center" }} className="dangnhap">
                 <br></br>
                 <h3 className="title">ĐĂNG NHẬP TÀI KHOẢN</h3><br></br>
                 <input
@@ -26,7 +35,9 @@ export class ComponentFormSignIn extends PureComponent {
                     value={this.state.username}
                     onChange={this.handleChange}
                     placeholder="Username"
-                /> <br></br><br></br>
+                />                 
+                <br></br><br></br>
+                <div style={{color: "red"}}>{localStorage.getItem('errorLogin')?localStorage.getItem('errorLogin'):''}</div>
                 <input
                     style={{ width: "250px" }}
                     className="input"
@@ -43,4 +54,14 @@ export class ComponentFormSignIn extends PureComponent {
     }
 }
 
-export default ComponentFormSignIn
+const mapStateToProps = (props) => {
+    return {
+        user: props.signIn,
+    }
+}
+
+const mapDispatchToProps = dispatch => ({
+    SignInAction: userInfo => dispatch(SignInAction(userInfo))
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(ComponentFormSignIn)

@@ -1,9 +1,11 @@
 import React, { PureComponent } from 'react'
 import { connect } from 'react-redux';
-import { userPostFetch } from '../../../redux/action';
+import { RegisterAction } from '../../../actions/register';
 
 export class ComponentFormRegister extends PureComponent {
   state = {
+    ten_kh: 'Nguyễn Ngọc Báu',
+    dia_chi: '99 An Dương Vương, P16, Q8, HCM',
     username: '',
     password: '',
     email: '',
@@ -16,10 +18,12 @@ export class ComponentFormRegister extends PureComponent {
     });
   }
 
-  handleSubmit = event => {
+
+  handleSubmit = async event => {
     event.preventDefault()
-    this.props.userPostFetch(this.state)
-  }
+    await this.props.RegisterAction(this.state)    
+    window.location.reload();
+  }  
 
   render() {
     return (
@@ -37,6 +41,7 @@ export class ComponentFormRegister extends PureComponent {
             required
             placeholder="Tên đăng nhập"
           /><br></br>
+          <div style={{color: "red"}}>{JSON.parse(localStorage.getItem('errorRegister')).error==="username"?JSON.parse(localStorage.getItem('errorRegister')).message:''}</div>
         </div>
         <div className="form-group">Password<br></br>
           <input style={{ width: "250px" }}
@@ -48,6 +53,7 @@ export class ComponentFormRegister extends PureComponent {
             required
             placeholder="Mật khẩu"
           /><br></br>
+          <div style={{color: "red"}}>{JSON.parse(localStorage.getItem('errorRegister')).error==="password"?JSON.parse(localStorage.getItem('errorRegister')).message:''}</div>
         </div>
         <div className="form-group">Email <br></br>
           <input
@@ -73,7 +79,7 @@ export class ComponentFormRegister extends PureComponent {
             id="phone"
             required
             placeholder="Số điện thoại"
-          /><br></br>
+          /><br></br>          
         </div>
         <input className="btn btn-danger" type="submit" name="dangky" value="Đăng Ký" />
       </form>
@@ -81,8 +87,14 @@ export class ComponentFormRegister extends PureComponent {
   }
 }
 
+const mapStateToProps = (props) => {
+  return {
+    user: props.register,
+  }
+}
+
 const mapDispatchToProps = dispatch => ({
-  userPostFetch: userInfo => dispatch(userPostFetch(userInfo))
+  RegisterAction: userInfo => dispatch(RegisterAction(userInfo))
 })
 
-export default connect(null, mapDispatchToProps)(ComponentFormRegister);
+export default connect(mapStateToProps, mapDispatchToProps)(ComponentFormRegister);
