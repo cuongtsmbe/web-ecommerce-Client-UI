@@ -9,14 +9,27 @@ import queryString from "query-string";
 const axiosClient = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
-        'content-type': 'application/json',
+        'Content-Type': 'application/json',       
     },
-    paramsSerializer: params => queryString.stringify(params),
+    paramsSerializer: params => queryString.stringify(params),    
 });
 
 axiosClient.interceptors.request.use(async (config) => {
     // Handle token here ...
-    return config;
+    const customHeaders = {};
+
+  const accessToken = localStorage.getItem('token');
+  if (accessToken) {
+    customHeaders.Authorization = accessToken;
+  }
+
+  return {
+    ...config,
+    headers: {
+      ...customHeaders,  // auto attach token
+      ...config.headers, // but you can override for some requests
+    }
+  };
 })
 
 axiosClient.interceptors.response.use((response) => {
