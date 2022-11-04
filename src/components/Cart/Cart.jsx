@@ -1,7 +1,52 @@
 import React, { PureComponent } from 'react';
-import ComponentCartItem from './Item'
+import cartApi from '../../api/cartApi';
+import ComponentCartItem from './Item';
+import { formatVND } from '../../utils/currencyVND';
 
 export class CopomentCart extends PureComponent {
+    state = {
+        products: [],
+        totalItems: 0,
+        totalPrice: 0
+    }
+
+    async getCart() {
+        const response = await cartApi.get();
+        const { products, totalItems, totalPrice } = response
+        this.setState({ products: products, totalItems: totalItems, totalPrice: totalPrice });
+    }
+    async componentDidMount() {
+        await this.getCart();
+    }
+    async handleDelete(id) {
+        try {
+            await cartApi.remove(id);
+        } catch (error) {
+            console.log('Fail to remove item ' + id + 'in cart.' + error);
+        }
+        await this.getCart();
+        this.forceUpdate();
+    }
+
+    async handleAdd(id) {
+        try {
+            await cartApi.add(id);
+        } catch (error) {
+            console.log('Fail to add item ' + id + 'in cart.' + error);
+        }
+        await this.getCart();
+        this.forceUpdate();
+    }
+
+    async handleReduce(id) {
+        try {
+            await cartApi.reduce(id);
+        } catch (error) {
+            console.log('Fail to reduce item ' + id + 'in cart.' + error);
+        }
+        await this.getCart();
+        this.forceUpdate();
+    }
     render() {
         return (
 
@@ -25,8 +70,15 @@ export class CopomentCart extends PureComponent {
                                                 <td><strong>GIÁ</strong></td>
                                                 <td align="center"><strong>SỐ LƯỢNG</strong></td>
                                                 <td />
-                                            </tr>                                           
-                                            <ComponentCartItem/>
+                                            </tr>
+                                            {this.state.products.map(product =>
+                                                <ComponentCartItem
+                                                    key={product.item.id}
+                                                    product={product}
+                                                    handleDelete={(id) => this.handleDelete(id)}
+                                                    handleAdd={(id) => this.handleAdd(id)}
+                                                    handleReduce={(id) => this.handleReduce(id)}
+                                                />)}
                                         </tbody>
                                     </table>
                                 </div>
@@ -36,11 +88,9 @@ export class CopomentCart extends PureComponent {
                                 </div>
                                 <div className="order-col">
                                     <div><strong>TỔNG TIỀN</strong></div>
-                                    <div><strong className="order-total">0</strong></div>
+                                    <div><strong className="order-total">{formatVND(this.state.totalPrice)}</strong></div>
                                 </div>
                             </div>
-
-
                             <button id="btnThanhToanThanhCong" style={{ width: '100%', display: 'none' }} className="btn-success btn order-submit">ĐẶT HÀNG THÀNH CÔNG</button>
 
                         </div>

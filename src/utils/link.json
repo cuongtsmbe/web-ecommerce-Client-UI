@@ -12,11 +12,11 @@
 
         "CART_GET":"/cart" ,
 
-        "CART_ADD_PRODUCT"   :"/cart/add/:id",
+        "CART_ADD_PRODUCT"   :"/cart/add",
 
-        "CART_REDUCE_PRODUCT"   :"/cart/reduce/:id",
+        "CART_REDUCE_PRODUCT"   :"/cart/reduce",
 
-        "CART_REMOVE_ITEM_PRODUCT"   :"/cart/remove/:id",
+        "CART_REMOVE_ITEM_PRODUCT"   :"/cart/remove",
 
         "CATEGORY_GET_LIST"  : "/listcategories",
 

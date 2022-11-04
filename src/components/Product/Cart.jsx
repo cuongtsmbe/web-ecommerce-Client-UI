@@ -1,14 +1,24 @@
 import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
+import cartApi from "../../api/cartApi";
 
 class ComponentProductCard extends PureComponent {
+    state={
+        infoProduct:null
+    }
 
     async componentDidMount() {
+        this.setState({infoProduct:this.props.infoProduct})
         const script = document.createElement("script");
         script.src = "./js/main.js";
         script.type = 'text/javascript';
         script.async = true;
         document.body.appendChild(script);
+    }
+
+    addToCart=async()=>{
+         await cartApi.add(this.state.infoProduct.id)
+         
     }
 
     render() {
@@ -36,7 +46,7 @@ class ComponentProductCard extends PureComponent {
                     </div>
                 </Link>
                 <div className="add-to-cart">
-                    <button className="add-to-cart-btn" onclick="addCart('.$item['id'].',1);themThanhCong('.$item['id'].');"><i className="fa fa-shopping-cart"></i> <span id="messAddCart'.$item['id'].'">thêm vào giỏ</span></button>
+                    <button className="add-to-cart-btn" onClickCapture={this.addToCart}><i className="fa fa-shopping-cart"></i> <span id="messAddCart'.$item['id'].'">thêm vào giỏ</span></button>
                 </div>
             </div>
         )

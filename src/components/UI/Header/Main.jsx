@@ -2,12 +2,14 @@ import React, { PureComponent } from "react";
 import { Link } from 'react-router-dom';
 import usersCogSolid from '../../../data/image/users-cog-solid.svg';
 import categoryApi from "../../../api/categoryApi";
+import cartApi from "../../../api/cartApi";
 
 class UIHeaderMain extends PureComponent {
 
     state = {
         categories: [],
         valueSearch: '',
+        totalItemInCart:0
     }
 
     handleChange = event => {
@@ -30,6 +32,12 @@ class UIHeaderMain extends PureComponent {
         } catch (error) {
             console.log('Failed to fetch category list:', error);
         }
+    }
+
+    async componentWillUpdate(){
+        const response = await cartApi.get();
+        const totalItemInCart = response.totalItems;
+        this.setState({totalItemInCart});
     }
 
     ShowMyOrderAndAccountButton() {
@@ -101,7 +109,7 @@ class UIHeaderMain extends PureComponent {
                                     <Link to='/cart'>
                                         <i className="fa fa-shopping-cart"></i>
                                         <span>Giỏ Hàng</span>
-                                        <div className="qty" id="qtyPro">20</div>
+                                        <div className="qty" id="qtyPro">{this.state.totalItemInCart}</div>
                                     </Link>
                                 </div>
 

@@ -7,10 +7,12 @@ import queryString from "query-string";
 // Please have a look at here `https://github.com/axios/axios#request-config` for the full list of configs
 
 const axiosClient = axios.create({
+  origin: true,
     baseURL: process.env.REACT_APP_API_URL,
     headers: {
         'Content-Type': 'application/json',       
     },
+    withCredentials: true,
     paramsSerializer: params => queryString.stringify(params),    
 });
 
@@ -20,7 +22,7 @@ axiosClient.interceptors.request.use(async (config) => {
 
   const accessToken = localStorage.getItem('token');
   if (accessToken) {
-    customHeaders.Authorization = accessToken;
+    customHeaders.Authorization ='Bearer ' + accessToken;
   }
 
   return {

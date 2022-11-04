@@ -41,7 +41,7 @@ export class ComponentFormRegister extends PureComponent {
             required
             placeholder="Tên đăng nhập"
           /><br></br>
-          <div style={{color: "red"}}>{JSON.parse(localStorage.getItem('errorRegister')).error==="username"?JSON.parse(localStorage.getItem('errorRegister')).message:''}</div>
+          <div style={{color: "red"}}>{localStorage.getItem('errorRegister')&&JSON.parse(localStorage.getItem('errorRegister')).error==="username"?JSON.parse(localStorage.getItem('errorRegister')).message:''}</div>
         </div>
         <div className="form-group">Password<br></br>
           <input style={{ width: "250px" }}
@@ -53,7 +53,7 @@ export class ComponentFormRegister extends PureComponent {
             required
             placeholder="Mật khẩu"
           /><br></br>
-          <div style={{color: "red"}}>{JSON.parse(localStorage.getItem('errorRegister')).error==="password"?JSON.parse(localStorage.getItem('errorRegister')).message:''}</div>
+          <div style={{color: "red"}}>{localStorage.getItem('errorRegister')&&JSON.parse(localStorage.getItem('errorRegister')).error==="password"?JSON.parse(localStorage.getItem('errorRegister')).message:''}</div>
         </div>
         <div className="form-group">Email <br></br>
           <input

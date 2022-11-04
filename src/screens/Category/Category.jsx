@@ -8,27 +8,28 @@ import productApi from "../../api/productApi";
 
 class ScreenCategory extends PureComponent {
 
-    state = {        
+    state = {
         listProducts: [],
     };
 
 
     async setListProduct() {
         try {
-            const response = await productApi.getAll({idtheloai:this.props.params.idCategory});
-            const data =  response.data;
-            this.setState({ listProducts: data })            
+            const response = await productApi.getAll({ idtheloai: this.props.params.idCategory });
+            const data = response.data;
+            this.setState({ listProducts: data })
         } catch (error) {
             console.log('Failed to fetch product list:', error);
         }
     }
 
-    async componentDidMount() {
-       await this.setListProduct();       
+    async componentDidMount() {        
+        await this.setListProduct();
     }
-
-    async componentDidUpdate() {
-       await this.setListProduct();
+   
+    async componentDidUpdate(prevProps) {
+        if (prevProps.params.idCategory !== this.props.params.idCategory)
+           await this.setListProduct();
     }
 
     render() {
