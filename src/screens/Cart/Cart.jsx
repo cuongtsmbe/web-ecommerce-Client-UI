@@ -1,9 +1,14 @@
 import React,{ PureComponent } from "react";
+import UIBreadCrumb from "../../components/UI/Breadcrumb/BreaedCrumb";
+import ComponentCart from '../../components/Cart/Cart';
 
 class ScreenCart extends PureComponent{
     render(){
         return(
-            <div>Màn hình giở hàng</div>
+            <div>
+            <UIBreadCrumb/>
+            <ComponentCart/>
+            </div>
         )
     }
 }
