@@ -5,7 +5,7 @@ import UIHeaderTop from './components/UI/Header/Top';
 import UIHeaderMain from './components/UI/Header/Main';
 import ScreensRoot from './screens/Root';
 import UIFooter from './components/UI/Footer/Footer';
-window.addEventListener("beforeunload",()=>localStorage.clear())
+// window.addEventListener("beforeunload",()=>localStorage.clear())
 class App extends PureComponent {
   
   render() {

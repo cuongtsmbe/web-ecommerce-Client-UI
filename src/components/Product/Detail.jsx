@@ -60,7 +60,15 @@ class ComponentProductDetail extends PureComponent {
     }
     increasingNo() {
         var index = 1;
-        if ((this.state.remainingQuantityOfProducts - this.state.quantity) === 0) index = 0;
+        if ((this.state.remainingQuantityOfProducts - this.state.quantity) === 0){
+            index = 0;
+            swal({                
+                text: "Vượt giới hạn cho phép!",
+                icon: "error",  
+                buttons:false,
+                timer:800              
+              });
+        } 
         this.setState({ quantity: this.state.quantity + index });
     }
     reduceNo() {
@@ -68,14 +76,14 @@ class ComponentProductDetail extends PureComponent {
         if ((this.state.remainingQuantityOfProducts - this.state.quantity + 1) === this.state.remainingQuantityOfProducts) index = 0;
         this.setState({ quantity: this.state.quantity - index });
     }
-    async addToCart(id) {
+    async addToCart(id,quantity) {
         try {
-            await cartApi.add(id);
+            await cartApi.add(id,quantity);
             swal({                
                 text: "Thêm thành công!",
                 icon: "success",  
                 buttons:false,
-                timer:2000              
+                timer:800              
               });
             // Thêm vào giỏ xong nhớ giảm số lượng trong state xuống (cập nhật lại remainingQuantityOfProducts trừ đi số lượng vừa thêm vào giỏ)
         } catch (error) {
@@ -165,7 +173,7 @@ class ComponentProductDetail extends PureComponent {
                                             <span className="qty-down" onClick={() => this.reduceNo()}>-</span>
                                         </div>
                                     </div>
-                                    <button className="add-to-cart-btn" onClick={() => { this.addToCart(this.props.detailProduct.id) }}><i
+                                    <button className="add-to-cart-btn" onClick={() => { this.addToCart(this.props.detailProduct.id, this.state.quantity) }}><i
                                         className="fa fa-shopping-cart"></i> <span id="messAddCart<?=$id?>">Thêm vào
                                             giỏ</span></button>
                                 </div>

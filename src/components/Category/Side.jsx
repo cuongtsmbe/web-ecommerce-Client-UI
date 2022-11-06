@@ -1,7 +1,35 @@
 import React, { PureComponent } from "react";
+import swal from "sweetalert";
+import { formatVND } from "../../utils/currencyVND";
 
 class ComponentCategorySide extends PureComponent {
     listBranchLaptop = ['MacBook', 'Asus', 'HP', 'Lenovo', 'Acer', 'DELL', 'MSI', 'LG', 'GIGABYTE'];
+    state={
+        minprice:0,
+        maxprice:100000000
+    }
+    
+    handleIncreaseMinPrice(minprice){
+        const index = 100000;
+        minprice = minprice+index;
+        this.setState({minprice});
+    }
+    handleReduceMinPrice(minprice){
+        const index = 100000;
+        minprice = minprice-index;
+        this.setState({minprice});
+    }
+    handleIncreaseMaxPrice(maxprice){
+        const index = 100000;
+        maxprice = maxprice+index;
+        this.setState({maxprice});
+    }
+    handleReduceMaxPrice(maxprice){
+        const index = 100000;
+        maxprice = maxprice-index;
+        this.setState({maxprice});
+    }
+
     render() {
         return (
             // <!-- ASIDE -->
@@ -11,7 +39,7 @@ class ComponentCategorySide extends PureComponent {
                     <h3 className="aside-title">Thương Hiệu</h3>
                     <div className="checkbox-filter" id="chkBrand">
                         {this.listBranchLaptop.map((branch, index) => <div key={index} className="input-checkbox">
-                            <input className="checkBrand" type="checkbox" id={index} value={branch} />
+                            <input className="checkBrand" type="checkbox" id={index} value={branch} onChange={this.props.handleClickBrand}/>
                             <label for={index}>
                                 <span></span>
                                 {branch}
@@ -28,18 +56,18 @@ class ComponentCategorySide extends PureComponent {
                     <div className="price-filter">
                         <div id="price-slider"></div>
                         <div className="input-number price-min">
-                            <input id="price-min" type="number" />
-                            <span className="qty-up">+</span>
-                            <span className="qty-down">-</span>
+                            <input type="number" min={0} name="minprice" value={this.state.minprice}/>
+                            <span className="qty-up" onClick={()=>this.handleIncreaseMinPrice(this.state.minprice)}>+</span>
+                            <span className="qty-down" onClick={()=>this.handleReduceMinPrice(this.state.minprice)}>-</span>
                         </div>
                         <span>-</span>
                         <div className="input-number price-max">
-                            <input id="price-max" type="number" />
-                            <span className="qty-up">+</span>
-                            <span className="qty-down">-</span>
+                            <input type="number" max={100000000} name="maxprice" value={this.state.maxprice}/>
+                            <span className="qty-up" onClick={()=>this.handleIncreaseMaxPrice(this.state.maxprice)}>+</span>
+                            <span className="qty-down" onClick={()=>this.handleReduceMaxPrice(this.state.maxprice)}>-</span>
                         </div>
                         <br /><br />
-                        <button className="btn" id="btn_gia">Áp Dụng</button>
+                        <button className="btn" id="btn_gia" onClick={()=>this.props.handleApplyPrice(this.state.minprice,this.state.maxprice)}>Áp Dụng Giá</button>
                     </div>
                 </div>
                 {/* <!-- /aside Widget --> */}

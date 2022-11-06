@@ -2,8 +2,8 @@ import axiosClient from "./axiosClient";
 import LINK from "../utils/link.json";
 // api/CartApi.js
 class CartApi {
-    add = (id) => {
-        const url = `${LINK.CLIENT.CART_ADD_PRODUCT}/${id}`;
+    add = (id,quantity) => {
+        const url = `${LINK.CLIENT.CART_ADD_PRODUCT}/${id}/${quantity}`;
         return axiosClient.post(url,{withCredentials: true,});
     };
     remove = (id)=>{

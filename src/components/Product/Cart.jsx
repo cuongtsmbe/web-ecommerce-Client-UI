@@ -1,6 +1,8 @@
 import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
 import cartApi from "../../api/cartApi";
+import { formatVND } from "../../utils/currencyVND";
+import swal from "sweetalert";
 
 class ComponentProductCard extends PureComponent {
     state={
@@ -17,8 +19,17 @@ class ComponentProductCard extends PureComponent {
     }
 
     addToCart=async()=>{
-         await cartApi.add(this.state.infoProduct.id)
-         
+        try {
+            await cartApi.add(this.state.infoProduct.id,1)   
+            swal({                
+                text: "Thêm thành công!",
+                icon: "success",  
+                buttons:false,
+                timer:800              
+              });
+        } catch (error) {
+            console.log('Fail to add item into cart'+error)
+        }                 
     }
 
     render() {
@@ -35,7 +46,7 @@ class ComponentProductCard extends PureComponent {
                         <p className="product-category"><small>{this.props.infoProduct.sl_da_ban}</small></p>
                         <h3 className="product-name"><Link to={`/product/${this.props.infoProduct.id}`}>{this.props.infoProduct.ten_sp}</Link></h3>
                         <button className="btn btn-sm">{this.props.infoProduct.ram}</button><button className="btn btn-sm">{this.props.infoProduct.oCung}</button>
-                        <h4 className="product-price">{this.props.infoProduct.don_gia}</h4>
+                        <h4 className="product-price">{formatVND(this.props.infoProduct.don_gia)}</h4>
                         <div className="product-rating">
                             <i className="fa fa-star"></i>
                             <i className="fa fa-star"></i>

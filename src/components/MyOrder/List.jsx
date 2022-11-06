@@ -6,9 +6,9 @@ class ComponentOderList extends PureComponent {
     state = {
         listOrder: [],
     }
-    async getListOrderByID(id) {
+    async getListOrderByID() {
         try {
-            const response = await orderApi.getMyOrders(7)
+            const response = await orderApi.getMyOrders()
             const listOrder = response.data;
             this.setState({ listOrder })
         } catch (error) {
@@ -24,7 +24,7 @@ class ComponentOderList extends PureComponent {
         return (
             <div className="col col-lg-10 col-sm-12">
                 <div className="section-title">
-                    <h3 className="title" id="testdate">Đơn hàng của tôi {this.props.idCustomer}</h3>
+                    <h3 className="title" id="testdate">Đơn hàng của tôi</h3>
                 </div>
                 <table width="100%">
                     <tbody>

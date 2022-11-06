@@ -1,10 +1,28 @@
 import React, { PureComponent } from "react";
 import { Link } from 'react-router-dom';
+import userApi from "../../../api/userApi";
 
 class UIHeaderTop extends PureComponent {
+    state={
+        user:'',        
+    }
+    async getProfile(){
+        const isAuth = localStorage.getItem('authenticated') || false;
+        if(isAuth){
+            const response = await userApi.getProfile();
+            const user = response.data[0];
+            this.setState({user:user})
+            localStorage.setItem('name',user.ten_kh===""?user.ten_dangnhap:user.ten_kh);
+        }
+        
+    }
+    async componentDidMount(){
+        await this.getProfile();
+        
+    }
     wellcome() {
         const isAuth = localStorage.getItem('authenticated') || false;
-        if (isAuth) return <li><Link to="/myaccount"><i className="fa fa-user-o"></i> Xin chào, {isAuth}!</Link></li>;
+        if (isAuth) return <li><Link to="/myaccount"><i className="fa fa-user-o"></i> Xin chào, {this.state.user==''?this.state.user:this.state.user.ten_kh===""?this.state.user.ten_dangnhap:this.state.user.ten_kh}!</Link></li>;
         return <li><Link to='/register'><i className="fa fa-user-o"></i> Tạo tài khoản</Link></li>
     }
     render() {

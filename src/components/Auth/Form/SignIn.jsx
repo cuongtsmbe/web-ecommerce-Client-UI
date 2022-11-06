@@ -22,7 +22,7 @@ export class ComponentFormSignIn extends PureComponent {
         window.location.reload();
     }
 
-    render() {
+    render() {        
         return (
             <form onSubmit={this.handleSubmit} style={{ textAlign: "center" }} className="dangnhap">
                 <br></br>

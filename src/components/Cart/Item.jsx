@@ -13,7 +13,7 @@ export class ComponentCartItem extends PureComponent {
 
     render() {
         return (
-            <tr>
+            <tr height="100px">
                 <td width="60px">
                     <img
                         src={this.state.product.item.hinh_anh}
