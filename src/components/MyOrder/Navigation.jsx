@@ -8,7 +8,7 @@ export class MyOrderNavigation extends PureComponent {
         <div className="row ">
           <p>Tài khoản của
           </p><p>
-            <strong>{/*?=$_SESSION['ten_dangnhap']?*/}Nguyen Ngoc Bau</strong>
+            <strong>{localStorage.getItem('name')}</strong>
           </p></div>
         <div>
           <ul className="footer-links">

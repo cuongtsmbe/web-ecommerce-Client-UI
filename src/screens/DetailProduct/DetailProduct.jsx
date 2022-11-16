@@ -24,7 +24,8 @@ class ScreenDetailProduct extends PureComponent {
     async componentDidMount() {        
         await this.getDetailProduct();        
     }
-    async componentDidUpdate(){
+    async componentDidUpdate(prevProps){
+        if (prevProps.params.idProduct !== this.props.params.idProduct)
         await this.getDetailProduct();
     }
 

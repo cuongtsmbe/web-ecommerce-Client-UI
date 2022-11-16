@@ -7,6 +7,7 @@ export const SignInAction = (user) => {
                 if(data.user) {
                     localStorage.setItem('token', data.user.AccessToken)
                     localStorage.setItem('authenticated', true)
+                    localStorage.setItem('refreshToken',data.user.refreshToken)
                     localStorage.removeItem('errorLogin')
                     dispatch({
                         type: 'LOGIN_USER',

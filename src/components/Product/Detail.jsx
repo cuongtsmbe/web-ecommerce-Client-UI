@@ -1,13 +1,14 @@
 import React, { PureComponent } from "react";
 import { Link } from "react-router-dom";
-// import '../../css/slick.css';
-// import '../../css/bootstrap.min.css';
-// import '../../css/font-awesome.min.css';
-// import '../../css/nouislider.min.css';
-// import '../../css/slick-theme.css';
-// import '../../css/style.css';
+import cartApi from "../../api/cartApi";
+import { formatVND } from "../../utils/currencyVND";
+import swal from "sweetalert";
 
 class ComponentProductDetail extends PureComponent {
+    state = {
+        quantity: 1,
+        remainingQuantityOfProducts: this.props.detailProduct.so_luong
+    }
     componentDidMount() {
         const script = document.createElement("script");
         script.src = "./js/main.js";
@@ -57,10 +58,42 @@ class ComponentProductDetail extends PureComponent {
         script7.async = true;
         document.body.appendChild(script7);
     }
+    increasingNo() {
+        var index = 1;
+        if ((this.state.remainingQuantityOfProducts - this.state.quantity) === 0){
+            index = 0;
+            swal({                
+                text: "Vượt giới hạn cho phép!",
+                icon: "error",  
+                buttons:false,
+                timer:800              
+              });
+        } 
+        this.setState({ quantity: this.state.quantity + index });
+    }
+    reduceNo() {
+        var index = 1;
+        if ((this.state.remainingQuantityOfProducts - this.state.quantity + 1) === this.state.remainingQuantityOfProducts) index = 0;
+        this.setState({ quantity: this.state.quantity - index });
+    }
+    async addToCart(id,quantity) {
+        try {
+            await cartApi.add(id,quantity);
+            swal({                
+                text: "Thêm thành công!",
+                icon: "success",  
+                buttons:false,
+                timer:800              
+              });
+            // Thêm vào giỏ xong nhớ giảm số lượng trong state xuống (cập nhật lại remainingQuantityOfProducts trừ đi số lượng vừa thêm vào giỏ)
+        } catch (error) {
+            console.log('Fail to add cart' + error)
+        }
+    }
     render() {
         return (
             // <!-- SECTION -->
-            <div className="section">
+            <div className="section">                 
                 {/* container */}
                 <div className="container">
                     {/* row */}
@@ -117,8 +150,8 @@ class ComponentProductDetail extends PureComponent {
                                     <Link className="review-link" to="">{this.props.detailProduct.sl_da_ban} sản phẩm đã bán.</Link>
                                 </div>
                                 <div>
-                                    <h3 className="product-price">{this.props.detailProduct.don_gia}
-                                        <del className="product-old-price">{this.props.detailProduct.don_gia}</del></h3>
+                                    <h3 className="product-price">{formatVND(this.props.detailProduct.don_gia)}
+                                        <del className="product-old-price">{formatVND(this.props.detailProduct.don_gia)}</del></h3>
                                     <span className="product-available">còn hàng</span>
                                 </div>
                                 <p>{this.props.detailProduct.noi_dung}</p>
@@ -133,16 +166,14 @@ class ComponentProductDetail extends PureComponent {
                             if(isset($_SESSION['cart'][$id]))
                             $soLuongHienCoTrongGioHang=$_SESSION['cart'][$id]['qty'];
 										?> */}
-                                            <input type="number" id="qtyAdd" value={1}
-                                                onchange="kiemTraSoLuong(<?=$detailproduct['so_luong']-$soLuongHienCoTrongGioHang?/>);" />
+                                            <input type="number" id="qtyAdd" value={this.state.quantity} />
                                             <div id="sl_tonkho<?=$id?>" style={{ display: 'none' }}>
-                                                {/* <?=($detailproduct['so_luong']-$soLuongHienCoTrongGioHang)?> */}
                                             </div>
-                                            <span className="qty-up">+</span>
-                                            <span className="qty-down">-</span>
+                                            <span className="qty-up" onClick={() => this.increasingNo()}>+</span>
+                                            <span className="qty-down" onClick={() => this.reduceNo()}>-</span>
                                         </div>
                                     </div>
-                                    <button className="add-to-cart-btn" onclick="addCart(<?=$id?>,1);themThanhCong(<?=$id?>);"><i
+                                    <button className="add-to-cart-btn" onClick={() => { this.addToCart(this.props.detailProduct.id, this.state.quantity) }}><i
                                         className="fa fa-shopping-cart"></i> <span id="messAddCart<?=$id?>">Thêm vào
                                             giỏ</span></button>
                                 </div>
