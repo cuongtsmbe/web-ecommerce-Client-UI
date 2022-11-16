@@ -2,6 +2,9 @@ import React, { PureComponent } from "react";
 import ComponentProductCard from "../../Product/Cart";
 
 class ComponentCategoryStoreListProduct extends PureComponent {
+    state={
+        products:this.props.products
+    }
     render() {        
         return (
             <div>

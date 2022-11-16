@@ -33,6 +33,10 @@
         "ORDER_GET_DETAILS"  : "/history/order/details",
         
         "ORDER_THANHTOAN"   : "/order/thanhtoan",
+        
+        "ORDER_CHANGE_STATUS" : "/order/change",
+        
+        "THUONGHIEU_GET_ALL"    : "/thuonghieu/listAll",
 
         "PRODUCT_GET_LIST"  : "/product/list",
 

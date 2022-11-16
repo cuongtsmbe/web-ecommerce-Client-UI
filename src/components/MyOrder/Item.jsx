@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom'
-import swal from 'sweetalert'
 import orderApi from '../../api/orderApi'
 import { formatVND } from '../../utils/currencyVND'
 
@@ -16,14 +15,19 @@ export class ComponentOrderItem extends PureComponent {
                 return <td align="center" style={{ color: "#4187e8" }}>Đang đóng gói</td>
             case 3:
                 return <td align="center" style={{ color: "#f86402" }}>Đang giao</td>
-            default:
+            case 4:
                 return <td align="center" style={{ color: "#07ea03" }}>Thành công</td>
+            case 0:
+                return <td align="center" style={{ color: "red" }}>Đã hủy</td>
+            default:
+                return <td align="center" style={{ color: "#07ea03" }}>?? error</td>
+
         }
     }
     actionOfOrder() {
         switch (this.props.infoOrder.Trang_thai) {
             case 1:
-                return <td><button class="btn btn-sm btn-danger" onClick={() => { this.handleDeleteOrder() }}>Hủy đơn</button></td>
+                return <td><button class="btn btn-sm btn-danger" onClick={() => { this.props.handleDeleteOrder(this.props.infoOrder.Ma_don_hang) }}>Hủy đơn</button></td>
             case 2:
                 return <td></td>
             case 3:
@@ -32,23 +36,7 @@ export class ComponentOrderItem extends PureComponent {
                 return <td></td>
         }
     }
-    async handleDeleteOrder() {
-        swal('Đơn hàng xủa bạn sẻ bị xóa?', {
-            buttons: {
-                cancel: 'Đóng',               
-                catch:{text:'Xóa', value:'catch'}
-            },
-        }).then((value) => {
-            switch (value) {
-                case 'catch':
-                    swal('Đơn hàng đã bị xóa')
-                    break;               
-                default:
-                    swal('Đơn hàng chưa bị xóa')
-                    break;
-            }
-        })
-    }
+
     async getListNameOfProduct() {
         const response = await orderApi.getOrderDetail(this.props.infoOrder.Ma_don_hang);
         const products = response.data.data;

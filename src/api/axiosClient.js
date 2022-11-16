@@ -20,7 +20,6 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(async (config) => {
   // Handle token here ...
   const customHeaders = {};
-
   const accessToken = localStorage.getItem('token');
   if (accessToken) {
     customHeaders.Authorization = 'Bearer ' + accessToken;
@@ -34,48 +33,60 @@ axiosClient.interceptors.request.use(async (config) => {
     }
   };
 })
-function createAxiosResponseInterceptor() {
- const interceptor =  axiosClient.interceptors.response.use((response) => {
-    if (response && response.data) {
-      return response.data;
-    }
-    return response;
-  }, (error) => {
-    // Handle errors
-    // Reject promise if usual error
-    if (error.response.status !== 400 && error.response.status !== 401) {
-      return Promise.reject(error);
-    }
-    /*
-            * When response code is 401, try to refresh the token.
-            * Eject the interceptor so it doesn't loop in case
-            * token refresh causes the 401 response.
-            *
-            * Must be re-attached later on or the token refresh will only happen once
-            */
-    axios.interceptors.response.eject(interceptor);
-    return userApi.refreshToken({user:{ refreshToken: localStorage.getItem('refreshToken') }}).then((response) => {
-      // Save access token
-      localStorage.setItem('token', response.AccessToken);
-      error.response.config.headers["Authorization"] = "Bearer " + response.AccessToken;
-      // Retry the initial call, but with the updated token in the headers. 
-      // Resolves the promise if successful  
-      // this.router.push('/')    ;
-      return axios(error.response.config);
-    })
-      .catch((error2) => {
-        // Retry failed, clean up and reject the promise
-        // destroyToken();
-        // localStorage.removeItem('token');
-        // localStorage.removeItem('authenticated');
-        // this.router.push("/signin");
-        return Promise.reject(error2);
-      })
-      .finally(createAxiosResponseInterceptor);
-    // throw error;
-  });
-}
-createAxiosResponseInterceptor(); // Execute the method once during start
+
+axiosClient.interceptors.response.use(async (response) => {
+  const config = response.config;
+  if (config.url.indexOf('/login') >= 0 || config.url.indexOf('/register') >= 0 || config.url.indexOf('/refreshToken') >= 0) {
+    return response.data || response;
+  }
+
+  return response.data || response;
+}, async (err) => {
+  if (err.response.status === 400 || err.response.status === 401) {
+    const refreshResponse = await userApi.refreshToken({ user: JSON.stringify({ refreshToken: localStorage.getItem('refreshToken') }) });
+    // Save access token
+    localStorage.setItem('token', refreshResponse.AccessToken);
+    err.response.config.headers["Authorization"] = "Bearer " + err.response.AccessToken;
+    return axiosClient(err.response.config)
+  }
+  return Promise.reject(err);
+})
+// function createAxiosResponseInterceptor() {
+//  const interceptor =  axiosClient.interceptors.response.use(
+//   (response) => response.data||response,
+//     // {if (response && response.data) {
+//     //   return response.data;
+//     // }
+//     //  return response;}
+//    async (error) => {
+//     // Handle errors
+//     // Reject promise if usual error
+//     if (error.response.status !== 400 && error.response.status !== 401) {
+//       return Promise.reject(error);
+//     }
+//     /*
+//             * When response code is 401, try to refresh the token.
+//             * Eject the interceptor so it doesn't loop in case
+//             * token refresh causes the 401 response.
+//             *
+//             * Must be re-attached later on or the token refresh will only happen once
+//             */
+//     axios.interceptors.response.eject(interceptor);
+//     try {
+//        try {
+//          const response = await userApi.refreshToken({ user: JSON.stringify({ refreshToken: localStorage.getItem('refreshToken') }) });
+//          // Save access token
+//          localStorage.setItem('token', response.AccessToken);
+//          error.response.config.headers["Authorization"] = "Bearer " + response.AccessToken;
+//          return await axios(error.response.config);
+//        } catch (error2) {
+//          return await Promise.reject(error2);
+//        }
+//      } finally { }
+//     // throw error;
+//   });
+// }
+// createAxiosResponseInterceptor(); // Execute the method once during start
 
 
 export default axiosClient;

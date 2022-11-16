@@ -1,10 +1,9 @@
 import React, { PureComponent } from "react";
-import swal from "sweetalert";
 
 class ComponentCategoryStoreFillter extends PureComponent {
     state = {
         sapXep: ['Bán Chạy', 'Giá cao', 'Giá thấp'],
-        manHinh: ['13.3 inch', '13.4 inch', '13.5 inch', '14 inch', '15.6 inch', '16 inch', '16.1 inch', '17 inch', '17.3 inch'],
+        manHinh: ['13.3', '13.4', '13.5', '14', '15.6', '16', '16.1', '17', '17.3'],
         cpu: ['Intel Core i9', 'Intel Core i7', 'Intel Core i5', 'Intel Core i3', 'Intel Celeron/Pentium', 'AMD'],
         ram: ['32 GB', '16 GB', '8 GB', '4 GB'],
         card: ['GeForce GTX', 'GeForce RTX', 'GeForce MX', 'GeForce Quadro', 'Radeon RX'],
@@ -27,7 +26,7 @@ class ComponentCategoryStoreFillter extends PureComponent {
                         </select>
                         <select className="input-select" id="man_hinh" onChange={this.props.handleSreen}>
                             <option value="-1">MÀN HÌNH</option>
-                            {this.state.manHinh.map((item, index) => <option key={index} value={item}>{item}</option>)}
+                            {this.state.manHinh.map((item, index) => <option key={index} value={item}>{item}{' inch'}</option>)}
                         </select>
                         <select className="input-select" id="cpu" onChange={this.props.handleCpu}>
                             <option value="-1">CPU</option>

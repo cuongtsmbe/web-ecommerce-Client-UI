@@ -3,12 +3,13 @@ import { Link } from 'react-router-dom';
 import usersCogSolid from '../../../data/image/users-cog-solid.svg';
 import categoryApi from "../../../api/categoryApi";
 import cartApi from "../../../api/cartApi";
+import { withParams } from "../../../utils/Params/componentWithParams";
 
 class UIHeaderMain extends PureComponent {
 
     state = {
         categories: [],
-        valueSearch: '',
+        valueSearch: window.location.search?new URLSearchParams(window.location.search).get('valueSearch'):'',
         totalItemInCart:0
     }
 
@@ -24,7 +25,7 @@ class UIHeaderMain extends PureComponent {
         window.location.href='/';
     }
 
-    async componentDidMount() {
+    async componentDidMount() {        
         try {
             const response = await categoryApi.getAll();
             const categories = response.data;
@@ -57,6 +58,11 @@ class UIHeaderMain extends PureComponent {
         const isAuth = localStorage.getItem('authenticated') || false;
         if (isAuth) return <Link  onClickCapture={this.handleLogout}>Đăng Xuất <i className="fa fa-arrow-circle-right"></i></Link>;
         return <Link to="/register">Đăng Ký</Link>
+    }
+
+    handleSearch=event=>{
+        event.preventDefault();
+        window.location.href=`/categories?valueSearch=${this.state.valueSearch}`
     }
 
     render() {
@@ -93,7 +99,7 @@ class UIHeaderMain extends PureComponent {
                                         value={this.state.valueSearch}
                                         onChange={this.handleChange}
                                         required />
-                                    <button className="search-btn">Tìm</button>
+                                    <button className="search-btn" onClick={this.handleSearch}>Tìm</button>
                                 </form>
                             </div>
                         </div>
@@ -154,4 +160,4 @@ class UIHeaderMain extends PureComponent {
     }
 }
 
-export default UIHeaderMain
+export default withParams(UIHeaderMain)
