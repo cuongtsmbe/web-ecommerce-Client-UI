@@ -1,9 +1,14 @@
 import axiosClient from "./axiosClient";
 // api/orderApi.js
 class OrderApi {
-    getAll = (params) => {
-        const url = '/orders';
-        return axiosClient.get(url, { params });
+    getMyOrders = (id) => {
+        const url = `/admin/order/customer/${id}`;
+        return axiosClient.get(url);
+    };
+
+    getOrderDetail = (id)=>{
+        const url = `/admin/order/${id}`;
+        return axiosClient.get(url);
     };
 }
 const orderApi = new OrderApi();

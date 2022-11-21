@@ -1,9 +1,11 @@
 import React,{ PureComponent } from "react";
+import { Link } from 'react-router-dom';
+import usersCogSolid from '../../../data/image/users-cog-solid.svg';
 
 class UIHeaderMain extends PureComponent{
     render(){
         return(
-            <div>Main Header chứa: Logo, Search, giỏ hàng, cài đặt,.v.v</div>
+            <div>Mani header</div>
         )
     }
 }

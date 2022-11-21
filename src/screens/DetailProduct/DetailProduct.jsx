@@ -1,17 +1,39 @@
-import React,{ PureComponent } from "react";
-import {withParams} from '../../utils/Params/componentWithParams';
+import React, { PureComponent } from "react";
+import UIBreadCrumb from "../../components/UI/Breadcrumb/BreaedCrumb";
+import { withParams } from '../../utils/Params/componentWithParams';
+import productApi from "../../api/productApi";
+import ComponentProductDetail from "../../components/Product/Detail";
 
-class ScreenDetailProduct extends PureComponent{
-    state = {
-        idProduct:null
+class ScreenDetailProduct extends PureComponent {
+    state = {        
+        product: []
     }
-    componentDidMount(){
-        const {idProduct} = this.props.params;
-        this.setState({idProduct})
+
+    async getDetailProduct() {
+        try {
+            const { idProduct } = this.props.params;            
+            const response = await productApi.getDetailProductById(idProduct);
+            const product = response.data;
+            this.setState({ product })
+        } catch (error) {
+            console.log('Failed to get product detail:', error);
+        }
     }
-    render(){
-        return(
-            <div>Màn hình chi tiết sản phẩm ID: {this.state.idProduct}</div>
+
+    async componentDidMount() {
+        await this.getDetailProduct();        
+    }
+
+    render() {
+        return (
+            <div>
+                {/* Màn hình chi tiết sản phẩm ID: {this.state.idProduct} */}
+                <UIBreadCrumb />
+                {this.state.product.map((prod, index) => <ComponentProductDetail key={index} detailProduct={prod} />)}
+
+
+
+            </div>
         )
     }
 }
