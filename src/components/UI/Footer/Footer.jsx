@@ -1,9 +1,21 @@
 import React, { PureComponent } from "react";
-
+import categoryApi from '../../../api/categoryApi';
+import { Link } from "react-router-dom";
 class UIFooter extends PureComponent {
+    state = {
+        listCate: [],
+    }
+    async componentDidMount() {   
+      
+        var ls=await categoryApi.getAll();
+        this.setState({listCate:ls.data});
+    }
     render() {
+ 
         return (
+            
             <>
+            
                 {/* FOOTER */}
                 <footer id="footer">
                     {/* top footer */}
@@ -45,35 +57,14 @@ class UIFooter extends PureComponent {
                                     <div className="footer">
                                         <h3 className="footer-title">Danh Mục Sản Phẩm</h3>
                                         <ul className="footer-links">
-                                            <li>
-                                                <a href="#">Hot deals</a>
-                                            </li>   
-                                            <li>
-                                                <a href="#"> Macbook</a>
-                                            </li>
-                                            <li>
-                                                <a href="#"> Học tập-văn phòng</a>
-                                            </li>
-                                            <li>
-                                                <a href="#"> Gaming</a>
-                                            </li>
-                                            <li>
-                                                <a href="#"> Mỏng nhẹ</a>
-                                            </li>
-                                            {/*?php
-										// $sql='select id, ten_tl from theloai';
-										// $list=executeResult($sql);
-										$theloai = new theloai();
-										$list = $theloai-*/}
-                                            {/* getAll(); foreach($list as $item){"{"}
-                                            echo ' */}
-                                            <li>
-                                                <a href="index.php?act=category&id='.$item['id'].'">
-                                                    {/* '.$item['ten_tl'].' */}
-                                                </a>
-                                            </li>
-                                           
+                                        {this.state.listCate.map((item,index)=> 
                                         
+                                        <li key={index}>
+                                                <Link to={`/categories/${item.id}`}>{item.ten_the_loai}</Link>
+                                        </li>   
+                                        )}
+                        
+                                         
                                         </ul>
                                     </div>
                                 </div>

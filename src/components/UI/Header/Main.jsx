@@ -1,12 +1,15 @@
 import React, { PureComponent } from "react";
 import usersCogSolid from '../../../data/image/users-cog-solid.svg';
 import categoryApi from './../../../api/categoryApi';
-
+import { Link } from "react-router-dom";
 class UIHeaderMain extends PureComponent {
   state = {
-    categories: []
+    categories: [],
+    selected:-1,
+    seaechInput:""
   }
   async componentDidMount() {
+    console.log("componentDidMount");
     try {
       const response = await categoryApi.getAll();
       const categories = response.data;
@@ -15,8 +18,15 @@ class UIHeaderMain extends PureComponent {
       console.log('Failed to fetch category list:', error);
     }
   }
-  render() {
 
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.selected !== this.state.selected) {
+     //api san pham : loc san pham
+    }
+  }
+  
+  render() {
+console.log("render");
     return (
 
 
@@ -28,10 +38,10 @@ class UIHeaderMain extends PureComponent {
 
             < div className="col-md-3" >
               <div className="header-logo">
-                <a href="index.php" className="logo">
+                <Link to="/" className="logo">
                   
                   <h1 style={{ color: 'white', marginTop: '12px' }}>GninE</h1>
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -39,10 +49,19 @@ class UIHeaderMain extends PureComponent {
             <div className="col-md-6">
               <div className="header-search">
                 <form method="get">
-                  <select className="input-select" onchange="location = this.value;">
-                    <option value={0}>Danh Mục Sản Phẩm</option>
-                    <option value="?act=category&id='.$item['id'].'">goi api thsy the loai do day</option>
+               
+                  
+                  <select className="input-select" onChange={(e)=>this.setState({selected:e.target.value})}>
+                    <option value="-1">Danh Mục Sản Phẩm</option>
                     
+                     {this.state.categories.map((item,index)=> 
+                                        <option key={index} value={item.id}>{item.ten_the_loai}</option>
+                                       
+                                              
+                                        
+                                        )}
+                 
+                   
                   </select>
                   <input className="input" name="search" placeholder="Tên sản phẩm......" required />
                   <button className="search-btn">Tìm</button>
