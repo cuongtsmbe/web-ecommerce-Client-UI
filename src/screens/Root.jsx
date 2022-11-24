@@ -14,6 +14,7 @@ import ScreenMyAccount from './MyAccount/MyAccount';
 class ScreensRoot extends PureComponent {
     render() {
         return (
+                        
             <Routes>
                 <Route path='/' element={<ScreenHome />} />
                 <Route path='/home' element={<ScreenHome />} />
@@ -26,7 +27,7 @@ class ScreensRoot extends PureComponent {
                 <Route path='/myorders' element={<ScreenOderList />} />
                 <Route path='/myorders/:idOrder' element={<ScreenOderDetail />} />
                 <Route path='/myaccount/' element={<ScreenMyAccount />} />
-            </Routes>
+            </Routes>            
         )
     }
 }
