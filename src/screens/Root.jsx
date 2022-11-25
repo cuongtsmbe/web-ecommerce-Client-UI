@@ -10,6 +10,7 @@ import ScreenOderList from './Order/List';
 import ScreenRegister from './Auth/Register';
 import ScreenSigin from './Auth/SignIn';
 import ScreenMyAccount from './MyAccount/MyAccount';
+import ScreenAuthResetPassword from './Auth/ResetPassword';
 
 class ScreensRoot extends PureComponent {
     render() {
@@ -24,6 +25,7 @@ class ScreensRoot extends PureComponent {
                 <Route path='/product/:idProduct' element={<ScreenDetailProduct />} />
                 <Route path='/register' element={<ScreenRegister />} />
                 <Route path='/signin' element={<ScreenSigin />} />
+                <Route path='/buyer/reset' element={<ScreenAuthResetPassword />} />
                 <Route path='/myorders' element={<ScreenOderList />} />
                 <Route path='/myorders/:idOrder' element={<ScreenOderDetail />} />
                 <Route path='/myaccount/' element={<ScreenMyAccount />} />

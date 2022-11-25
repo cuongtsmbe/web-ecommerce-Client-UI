@@ -22,6 +22,10 @@ class UserApi {
         const url = LINK.CLIENT.CUSTOMER_EDIT_INFO;
         return axiosClient.put(url, params);
     }
+    resetPassword = (params)=>{
+        const url = LINK.CLIENT.AUTHENTICATE_FORGET_PW;
+        return axiosClient.post(url,params)
+    }
 }
 const userApi = new UserApi();
 

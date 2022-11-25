@@ -81,7 +81,7 @@ export class ComponentFormRegister extends PureComponent {
             placeholder="Số điện thoại"
           /><br></br>          
         </div>
-        <input className="btn btn-danger" type="submit" name="dangky" value="Đăng Ký" />
+        <input className="btn btn-danger" type="submit" name="dangky" value="Đăng Ký" style={{width:'250px'}}/>
       </form>
     )
   }

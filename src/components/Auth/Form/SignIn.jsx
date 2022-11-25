@@ -46,8 +46,10 @@ export class ComponentFormSignIn extends PureComponent {
                     value={this.state.password}
                     onChange={this.handleChange}
                     placeholder="Password"
-                /> <br></br><br></br>
-                <input className="btn btn-danger button" type='submit' name="dangnhap" value='Đăng nhập' /><br></br>
+                />                 
+                <br></br><br></br>
+                <input className="btn btn-danger button" type='submit' name="dangnhap" value='Đăng nhập' style={{width:'250px'}} /><br></br><br/>
+                <Link to='/buyer/reset'>Quên mật khẩu?</Link><br/>
                 <br></br><span>Bạn chưa có tài khoản?</span> <Link to='/register' title='Đăng ký'>Đăng ký</Link><br></br>
             </form>
         )
