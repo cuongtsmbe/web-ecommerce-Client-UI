@@ -80,7 +80,15 @@ export class CopomentCart extends PureComponent {
 
     async handlePayment(){
         try {
-            await orderApi.pay({phuong_thuc_thanh_toan:this.state.methodPayment});
+            const response = await orderApi.pay({phuong_thuc_thanh_toan:this.state.methodPayment});
+            if(response.message && String(response.message).includes('khong thanh cong')){
+                swal({                
+                    text: "Đặt hàng không thành công!",
+                    icon: "error",  
+                    buttons:false,
+                    timer:2000              
+                  });    
+            }else
             swal({                
                 text: "Đặt hàng thành công!",
                 icon: "success",  

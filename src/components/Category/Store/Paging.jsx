@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import { Link } from 'react-router-dom'
-import swal from 'sweetalert';
+
 
 export class ComponentCategoryStorePaging extends PureComponent {
   state = {

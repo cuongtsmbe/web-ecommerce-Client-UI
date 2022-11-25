@@ -1,29 +1,62 @@
 import React, { PureComponent } from 'react'
-import { connect } from 'react-redux';
-import { RegisterAction } from '../../../actions/register';
+import userApi from '../../../api/userApi';
+import swal from 'sweetalert';
 
 export class ComponentFormRegister extends PureComponent {
   state = {
-    ten_kh: 'Nguyễn Ngọc Báu',
+    ten_kh: '    ',
     dia_chi: '99 An Dương Vương, P16, Q8, HCM',
-    username: '',
-    password: '',
-    email: '',
-    phone: ''
+    username: undefined,
+    password: undefined,
+    email: undefined,
+    phone: undefined,
+    errorUsername: undefined,
+    errorPassword: undefined,
+    errorPhone: undefined,
+    errorEmail: undefined,
   }
 
   handleChange = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
+    if (this.state.errorEmail) this.setState({ errorEmail: undefined })
+    if (this.state.errorPassword) this.setState({ errorPassword: undefined })
+    if (this.state.errorPhone) this.setState({ errorPhone: undefined })
+    if (this.state.errorUsername) this.setState({ errorUsername: undefined })
   }
-
 
   handleSubmit = async event => {
     event.preventDefault()
-    await this.props.RegisterAction(this.state)    
-    window.location.reload();
-  }  
+    try {
+      const response = await userApi.register({ ten_kh: this.state.ten_kh, dia_chi: this.state.dia_chi, username: this.state.username, email: this.state.email, phone: this.state.phone, password: this.state.password })
+      console.log(response)
+      if (response.error && response.error === 'password') {
+        this.setState({ errorPassword: response.errorValidate });
+      }
+      if (response.status === 201 && String(response.message).includes('Email')) {
+        this.setState({ errorEmail: response.message });
+      }
+      if (response.status === 201 && String(response.message).includes('username')) {
+        this.setState({ errorUsername: response.message });
+      }
+      if (response.user) {
+        localStorage.setItem('token', response.user.AccessToken)
+        localStorage.setItem('authenticated', true)
+        localStorage.setItem('refreshToken', response.user.refreshToken)
+        swal({
+          text: "Đăng ký thành công!",
+          icon: "success",
+          buttons: false,
+          timer: 800
+      });
+        window.location.reload();
+      }
+    } catch (error) {
+      console.log('Fail to call api register!')
+    }    
+    
+  }
 
   render() {
     return (
@@ -41,7 +74,7 @@ export class ComponentFormRegister extends PureComponent {
             required
             placeholder="Tên đăng nhập"
           /><br></br>
-          <div style={{color: "red"}}>{localStorage.getItem('errorRegister')&&JSON.parse(localStorage.getItem('errorRegister')).error==="username"?JSON.parse(localStorage.getItem('errorRegister')).message:''}</div>
+          <div style={{ color: "red" }}>{this.state.errorUsername}</div>
         </div>
         <div className="form-group">Password<br></br>
           <input style={{ width: "250px" }}
@@ -53,7 +86,7 @@ export class ComponentFormRegister extends PureComponent {
             required
             placeholder="Mật khẩu"
           /><br></br>
-          <div style={{color: "red"}}>{localStorage.getItem('errorRegister')&&JSON.parse(localStorage.getItem('errorRegister')).error==="password"?JSON.parse(localStorage.getItem('errorRegister')).message:''}</div>
+          {this.state.errorPassword && this.state.errorPassword.map(error => <div style={{ color: "red" }}>{error.message}</div>)}
         </div>
         <div className="form-group">Email <br></br>
           <input
@@ -67,6 +100,7 @@ export class ComponentFormRegister extends PureComponent {
             placeholder="Email"
           /><br></br>
         </div>
+        <div style={{ color: "red" }}>{this.state.errorEmail}</div>
         <div className="form-group">Phone <br></br>
           <input
             style={{ width: "250px" }}
@@ -79,22 +113,13 @@ export class ComponentFormRegister extends PureComponent {
             id="phone"
             required
             placeholder="Số điện thoại"
-          /><br></br>          
+          /><br></br>
+          <div style={{ color: "red" }}>{ }</div>
         </div>
-        <input className="btn btn-danger" type="submit" name="dangky" value="Đăng Ký" style={{width:'250px'}}/>
+        <input className="btn btn-danger" type="submit" name="dangky" value="Đăng Ký" style={{ width: '250px' }} />
       </form>
     )
   }
 }
 
-const mapStateToProps = (props) => {
-  return {
-    user: props.register,
-  }
-}
-
-const mapDispatchToProps = dispatch => ({
-  RegisterAction: userInfo => dispatch(RegisterAction(userInfo))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(ComponentFormRegister);
+export default ComponentFormRegister;

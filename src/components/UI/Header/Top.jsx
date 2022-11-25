@@ -7,13 +7,18 @@ class UIHeaderTop extends PureComponent {
         user:'',        
     }
     async getProfile(){
-        const isAuth = localStorage.getItem('authenticated') || false;
+        try {
+            const isAuth = localStorage.getItem('authenticated') || false;
         if(isAuth){
             const response = await userApi.getProfile();
             const user = response.data[0];
             this.setState({user:user})
             localStorage.setItem('name',user.ten_kh===""?user.ten_dangnhap:user.ten_kh);
         }
+        } catch (error) {
+            
+        }
+        
         
     }
     async componentDidMount(){
@@ -21,9 +26,13 @@ class UIHeaderTop extends PureComponent {
         
     }
     wellcome() {
+        try{
         const isAuth = localStorage.getItem('authenticated') || false;
-        if (isAuth) return <li><Link to="/myaccount"><i className="fa fa-user-o"></i> Xin chào, {this.state.user==''?this.state.user:this.state.user.ten_kh===""?this.state.user.ten_dangnhap:this.state.user.ten_kh}!</Link></li>;
+        if (isAuth) return <li><Link to="/myaccount"><i className="fa fa-user-o"></i> Xin chào, {this.state.user===''?this.state.user:this.state.user.ten_kh===""?this.state.user.ten_dangnhap:this.state.user.ten_kh}!</Link></li>;
         return <li><Link to='/register'><i className="fa fa-user-o"></i> Tạo tài khoản</Link></li>
+        }catch(err){
+            console.log(err);
+        }
     }
     render() {
         return (

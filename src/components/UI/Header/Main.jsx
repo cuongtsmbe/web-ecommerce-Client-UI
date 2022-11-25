@@ -28,7 +28,9 @@ class UIHeaderMain extends PureComponent {
     async componentDidMount() {        
         try {
             const response = await categoryApi.getAll();
+            console.log(response);
             const categories = response.data;
+            
             this.setState({ categories });
         } catch (error) {
             console.log('Failed to fetch category list:', error);

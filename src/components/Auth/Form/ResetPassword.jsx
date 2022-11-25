@@ -18,7 +18,8 @@ export class ComponentAuthFormResetPassword extends PureComponent {
     handleSubmit = async event => {
         event.preventDefault();
         try {
-            const response = await userApi.resetPassword({ email: this.state.email, urlUI: 'http://localhost:3006/forgot_password' })    
+            const response = await userApi.resetPassword({ email: this.state.email, urlUI: 'http://localhost:3006/forgot_password'})                
+            if(response.status && response.status === 200) this.setState({step:2})
         } catch (error) {
             console.log('Fail to call api forgotpassword!');
         }
@@ -27,7 +28,7 @@ export class ComponentAuthFormResetPassword extends PureComponent {
     render() {
         if (this.state.step === 2) {
             return (
-                <form onSubmit={this.handleSubmit} style={{ textAlign: "center" }} className="dangnhap">
+                <form style={{ textAlign: "center" }} className="dangnhap">
                     <br></br>
                     <h3 className="title">ĐẶT LẠI MẬT KHẨU</h3><br></br>
                     <div><i className="fa fa-envelope-o fa-5x"></i></div>
@@ -35,7 +36,7 @@ export class ComponentAuthFormResetPassword extends PureComponent {
                     <div style={{ color: "red" }}>{this.state.email}</div>
                     <div>Vui lòng xác minh.</div>
 
-                    <input className="btn btn-danger button" type='submit' name="dangnhap" value='OK' style={{ margin: '5px' ,width:'250px'}} /><br></br>
+                    <input className="btn btn-danger button" type='button' name="dangnhap" value='OK' style={{ margin: '5px' ,width:'250px'}} /><br></br>
                     <br></br><span>Nhập lại email.</span> <Link onClick={()=>{this.setState({step:1})}}>Quay lại.</Link><br></br>
                 </form>
             )

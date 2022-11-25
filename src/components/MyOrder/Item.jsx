@@ -12,11 +12,13 @@ export class ComponentOrderItem extends PureComponent {
             case 1:
                 return <td align="center" style={{ color: "red" }}>Đang xử lý</td>
             case 2:
-                return <td align="center" style={{ color: "#4187e8" }}>Đang đóng gói</td>
+                return <td align="center" style={{ color: "#4187e8" }}>Đã duyệt</td>
             case 3:
-                return <td align="center" style={{ color: "#f86402" }}>Đang giao</td>
+                return <td align="center" style={{ color: "#f86402" }}>Đang đống gói</td>
             case 4:
-                return <td align="center" style={{ color: "#07ea03" }}>Thành công</td>
+                return <td align="center" style={{ color: "#07ea03" }}>Đang giao</td>
+            case 5:
+                return <td align="center" style={{ color: "#07ea03" }}>Hoàn thành</td>
             case 0:
                 return <td align="center" style={{ color: "red" }}>Đã hủy</td>
             default:

@@ -5,10 +5,10 @@ import swal from 'sweetalert'
 export class ComponentMyAccountChangeInfo extends PureComponent {
     state = {
         info: '',
-        name:'',
-        email:'',
-        phone:'',
-        address:''
+        name: '',
+        email: '',
+        phone: '',
+        address: ''
     }
 
     handleChange = event => {
@@ -17,31 +17,31 @@ export class ComponentMyAccountChangeInfo extends PureComponent {
         });
     }
 
-    handleUpdate = async event =>{
+    handleUpdate = async event => {
         event.preventDefault()
         try {
             const params = {
-                ten_kh:this.state.name,
-                phone:this.state.phone,
-                email:this.state.email,
-                dia_chi:this.state.address
+                ten_kh: this.state.name,
+                phone: this.state.phone,
+                email: this.state.email,
+                dia_chi: this.state.address
             }
             await userApi.updateInfo(params);
             window.location.reload();
-            swal({                
+            swal({
                 text: "Cập nhật thành công!",
-                icon: "success",  
-                buttons:false,
-                timer:800              
-              });
+                icon: "success",
+                buttons: false,
+                timer: 800
+            });
         } catch (error) {
-            swal({                
+            swal({
                 text: "Cập nhật không thành công!",
-                icon: "error",  
-                buttons:false,
-                timer:800              
-              });
-              console.log('Fail to update info'+error)
+                icon: "error",
+                buttons: false,
+                timer: 800
+            });
+            console.log('Fail to update info' + error)
         }
     }
 
@@ -50,10 +50,10 @@ export class ComponentMyAccountChangeInfo extends PureComponent {
             const response = await userApi.getProfile();
             const user = response.data[0];
             this.setState({ info: user });
-            this.setState({name:user.ten_kh});
-            this.setState({email:user.email});
-            this.setState({phone:user.phone});
-            this.setState({address:user.dia_chi});
+            this.setState({ name: user.ten_kh });
+            this.setState({ email: user.email });
+            this.setState({ phone: user.phone });
+            this.setState({ address: user.dia_chi });
         } catch (error) {
             console.log('Fail to get user info!');
         }
@@ -77,7 +77,7 @@ export class ComponentMyAccountChangeInfo extends PureComponent {
                                     <td>Tên đăng nhập</td>
                                     <td>
                                         <div className="form-group">
-                                            <input className="input" type="text" name="username" value={this.state.info.ten_dangnhap} readOnly style={{backgroundColor:'#E8F0FE'}} />
+                                            <input className="input" type="text" name="username" value={this.state.info.ten_dangnhap} readOnly style={{ backgroundColor: '#E8F0FE' }} />
                                         </div>
                                     </td>
                                 </tr>
@@ -85,7 +85,7 @@ export class ComponentMyAccountChangeInfo extends PureComponent {
                                     <td>Họ tên</td>
                                     <td>
                                         <div className="form-group">
-                                            <input className="input" type="text" name="name" placeholder="Nhập họ tên" value={this.state.name} onChange={this.handleChange}/>
+                                            <input className="input" type="text" name="name" placeholder="Nhập họ tên" value={this.state.name} onChange={this.handleChange} />
                                         </div>
                                     </td>
                                 </tr>
@@ -93,7 +93,7 @@ export class ComponentMyAccountChangeInfo extends PureComponent {
                                     <td>Số điện thoại</td>
                                     <td>
                                         <div className="form-group">
-                                            <input className="input" type="tel" id="sdt" name="phone" placeholder="Nhập số điện thoại" value={this.state.phone} onChange={this.handleChange}/>
+                                            <input className="input" type="tel" id="sdt" name="phone" placeholder="Nhập số điện thoại" value={this.state.phone} onChange={this.handleChange} />
                                             <div style={{ color: 'red' }} id="thongbaoloisdt" />
                                         </div>
                                     </td>
@@ -102,7 +102,7 @@ export class ComponentMyAccountChangeInfo extends PureComponent {
                                     <td>Email</td>
                                     <td>
                                         <div className="form-group">
-                                            <input className="input" type="email" name="email" placeholder="Nhập Email" value={this.state.email} onChange={this.handleChange}/>
+                                            <input className="input" type="email" name="email" placeholder="Nhập Email" value={this.state.email} onChange={this.handleChange} />
                                         </div>
                                     </td>
                                 </tr>
@@ -110,7 +110,7 @@ export class ComponentMyAccountChangeInfo extends PureComponent {
                                     <td>Địa chỉ</td>
                                     <td>
                                         <div className="form-group">
-                                            <input className="input" type="text" name="address" placeholder="Nhập địa chỉ" value={this.state.address} onChange={this.handleChange}/>
+                                            <input className="input" type="text" name="address" placeholder="Nhập địa chỉ" value={this.state.address} onChange={this.handleChange} />
                                         </div>
                                     </td>
                                 </tr>

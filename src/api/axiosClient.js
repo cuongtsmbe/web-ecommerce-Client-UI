@@ -35,14 +35,17 @@ axiosClient.interceptors.request.use(async (config) => {
 })
 
 axiosClient.interceptors.response.use(async (response) => {
+  
   const config = response.config;
-  if (config.url.indexOf('/login') >= 0 || config.url.indexOf('/register') >= 0 || config.url.indexOf('/refreshToken') >= 0) {
-    return response.data || response;
-  }
+  // if (config.url.indexOf('/login') >= 0 || config.url.indexOf('/register') >= 0 || config.url.indexOf('/refreshToken') >= 0) {
+  //   console.log(response.st);
+  //   return response.data || response;
+  // }
 
   return response.data || response;
 }, async (err) => {
-  if (err.response.status === 400 || err.response.status === 401) {
+  if (err.response.status === 400 || err.response.status === 400) {
+    console.log('expired token')
     const refreshResponse = await userApi.refreshToken({ user: JSON.stringify({ refreshToken: localStorage.getItem('refreshToken') }) });
     // Save access token
     localStorage.setItem('token', refreshResponse.AccessToken);
